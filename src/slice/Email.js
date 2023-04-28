@@ -1,20 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice,createAsyncThunk } from '@reduxjs/toolkit';
+import EmailService from '../service/Email.service';
+
+const initialState = {
+  "loading":true,
+  "data":[]
+}
+
+export const retrieveEmailList = createAsyncThunk(
+  "emails/getAll",
+  async () => {
+    console.log("retrieveEmailList")
+    const res = await EmailService.getAll();
+    return res.data.data;
+  }
+);
 
 export const emailSlice = createSlice({
   name: 'counter',
-  initialState: { value: 0 },
+  initialState: initialState,
   reducers: {
-    increment: (state) => {
-        console.log("yes");
-      state.value += 1
-    },
   },
   extraReducers: {
+    [retrieveEmailList.fulfilled]: (state, action) => {
+      return {
+        loading:false,
+        data:[...action.payload]
+      }
+    },
   }
 })
 
 
 const emailSliceReducer = emailSlice.reducer;
-// Action creators
-export const { increment } = emailSlice.actions;
 export default emailSliceReducer;

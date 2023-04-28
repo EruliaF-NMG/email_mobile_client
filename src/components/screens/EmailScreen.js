@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import {
     SafeAreaView,
@@ -11,29 +11,30 @@ import {
 
 import { emailStyle } from "../../styles/email.style";
 import { Heading } from "../ui_elements/CommonElements";
+import { retrieveEmailList } from "../../slice/Email";
 
 const Rows=({item})=>{
     return (
         <View style={[emailStyle.emailItemWrapper]}>
             <View style={[emailStyle.emailItemInfoWrapper]}>
-                <Text style={[emailStyle.emailItemHeading]}>Send By:{item}</Text>
-                <Text style={[emailStyle.emailItemValue]}>abc@gmail.com</Text>
+                <Text style={[emailStyle.emailItemHeading]}>Send By:</Text>
+                <Text style={[emailStyle.emailItemValue]}>{item.from_email}</Text>
             </View>
             <View style={[emailStyle.emailItemInfoWrapper]}>
                 <Text style={[emailStyle.emailItemHeading]}>Send To:</Text>
-                <Text style={[emailStyle.emailItemValue]}>nisal@gmail.com</Text>
+                <Text style={[emailStyle.emailItemValue]}>{item.send_to}</Text>
             </View>
             <View style={[emailStyle.emailItemInfoWrapper]}>
                 <Text style={[emailStyle.emailItemHeading]}>Status :</Text>
-                <Text style={[emailStyle.emailItemValue]}>Send</Text>
+                <Text style={[emailStyle.emailItemValue]}>{item.state}</Text>
             </View>
             <View style={[emailStyle.emailItemInfoWrapper]}>
-                <Text style={[emailStyle.emailItemHeading]}>Email Headinng :</Text>
-                <Text style={[emailStyle.emailItemValue]}>Hi </Text>
+                <Text style={[emailStyle.emailItemHeading]}>Email Subject :</Text>
+                <Text style={[emailStyle.emailItemValue]}>{item.subject} </Text>
             </View>
             <View style={[emailStyle.emailItemInfoWrapper]}>
                 <Text style={[emailStyle.emailItemHeading]}>Email Body :</Text>
-                <Text style={[emailStyle.emailItemValue]}>Hi </Text>
+                <Text style={[emailStyle.emailItemValue]}>{item.body} </Text>
             </View>
         </View>
     );
@@ -43,13 +44,18 @@ const Rows=({item})=>{
 const EmailScreen = () => {
 
     const email = useSelector(state => state.email);
- 
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(retrieveEmailList());
+        console.log("call-----");
+    },[]);
     return (
         <SafeAreaView>
             <Heading headaing="Email Requests" />
             <View style={[emailStyle.containerPadding,emailStyle.scrollViewWrapper]}>
             <FlatList
-                data={[1,2,3,5,6,7,8,9]}
+                data={email.data}
                 renderItem={Rows}
                 contentContainerStyle={{ flexGrow: 1 }}
              />
