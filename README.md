@@ -7,6 +7,6 @@ Run Backend Server
 
 2). cd ./email_mobile_client (move to project directory)
 
-3). Run NPM install
+3). Run npm install
 
-4). Run npx npx react-native run-android
+4). Run npx react-native run-android
