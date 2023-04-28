@@ -7,7 +7,7 @@ import store from './Store';
 const App = () => {
   return (
     <Provider store={store}>
-    <EmailScreen/>
+      <EmailScreen/>
     </Provider>
   );
 };

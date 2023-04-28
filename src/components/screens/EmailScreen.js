@@ -4,30 +4,56 @@ import {
     SafeAreaView,
     Text,
     View,
-    Button
+    ScrollView,
+    FlatList,
+    Alert
 } from 'react-native';
 
-import { increment } from "../../slice/Email";
+import { emailStyle } from "../../styles/email.style";
+import { Heading } from "../ui_elements/CommonElements";
+
+const Rows=({item})=>{
+    return (
+        <View style={[emailStyle.emailItemWrapper]}>
+            <View style={[emailStyle.emailItemInfoWrapper]}>
+                <Text style={[emailStyle.emailItemHeading]}>Send By:{item}</Text>
+                <Text style={[emailStyle.emailItemValue]}>abc@gmail.com</Text>
+            </View>
+            <View style={[emailStyle.emailItemInfoWrapper]}>
+                <Text style={[emailStyle.emailItemHeading]}>Send To:</Text>
+                <Text style={[emailStyle.emailItemValue]}>nisal@gmail.com</Text>
+            </View>
+            <View style={[emailStyle.emailItemInfoWrapper]}>
+                <Text style={[emailStyle.emailItemHeading]}>Status :</Text>
+                <Text style={[emailStyle.emailItemValue]}>Send</Text>
+            </View>
+            <View style={[emailStyle.emailItemInfoWrapper]}>
+                <Text style={[emailStyle.emailItemHeading]}>Email Headinng :</Text>
+                <Text style={[emailStyle.emailItemValue]}>Hi </Text>
+            </View>
+            <View style={[emailStyle.emailItemInfoWrapper]}>
+                <Text style={[emailStyle.emailItemHeading]}>Email Body :</Text>
+                <Text style={[emailStyle.emailItemValue]}>Hi </Text>
+            </View>
+        </View>
+    );
+}
   
 
 const EmailScreen = () => {
 
     const email = useSelector(state => state.email);
-    const dispatch = useDispatch();
-
-    const addOne = () => {
-        dispatch(increment());
-    }
-console.log(email);
+ 
     return (
         <SafeAreaView>
-        <View>
-            <Text>Hi count {email.value}</Text>
-            <Button
-                onPress={()=>addOne()}
-                title="Add"
-            />
-        </View>
+            <Heading headaing="Email Requests" />
+            <View style={[emailStyle.containerPadding,emailStyle.scrollViewWrapper]}>
+            <FlatList
+                data={[1,2,3,5,6,7,8,9]}
+                renderItem={Rows}
+                contentContainerStyle={{ flexGrow: 1 }}
+             />
+            </View>
         </SafeAreaView>
     )
 }
