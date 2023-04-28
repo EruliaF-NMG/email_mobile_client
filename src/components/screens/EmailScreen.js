@@ -4,9 +4,8 @@ import {
     SafeAreaView,
     Text,
     View,
-    ScrollView,
     FlatList,
-    Alert
+    ActivityIndicator,
 } from 'react-native';
 
 import { emailStyle } from "../../styles/email.style";
@@ -48,17 +47,21 @@ const EmailScreen = () => {
 
     useEffect(()=>{
         dispatch(retrieveEmailList());
-        console.log("call-----");
     },[]);
     return (
         <SafeAreaView>
             <Heading headaing="Email Requests" />
             <View style={[emailStyle.containerPadding,emailStyle.scrollViewWrapper]}>
-            <FlatList
-                data={email.data}
-                renderItem={Rows}
-                contentContainerStyle={{ flexGrow: 1 }}
-             />
+                {
+                    email.loading? 
+                    (<ActivityIndicator size="large" />) : (
+                        <FlatList
+                            data={email.data}
+                            renderItem={Rows}
+                            contentContainerStyle={{ flexGrow: 1 }}
+                        />
+                    )
+                }
             </View>
         </SafeAreaView>
     )

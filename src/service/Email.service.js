@@ -2,9 +2,12 @@ import {getData} from "../helpers/CommonHelpers";
 import {getEmailsAPI} from "../config/core.config";
 
 class EmailService {
+  /**
+   * Get all email templates
+   * @returns 
+   */
   async getAll() {
     try{
-        console.log("EmailService")
         const data =  await getData(getEmailsAPI);
         return data;
     } catch (ex){

@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+/**
+ * request data from server
+ * @param {*} apiPath  api url
+ * @returns 
+ */
 const getData = async (apiPath) => {
     return await axios.get(apiPath).then((result)=>{
         return {
