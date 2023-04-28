@@ -1,7 +1,7 @@
 # email_mobile_client
 Pickles Asia coding assessment 
 
-Run Backend Server
+Run React Native client app
 
 1). git clone https://github.com/EruliaF-NMG/email_mobile_client.git
 
